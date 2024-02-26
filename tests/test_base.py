@@ -1,5 +1,5 @@
 # Tests are defined here
-from ukp_project_template import BaseClass
+from template_workshop import BaseClass
 
 def test_template():
     assert True
