@@ -25,4 +25,6 @@ def main():  # pragma: no cover
         * List all available tasks
         * Run an application (Flask, FastAPI, Django, etc.)
     """
+    ##### YOUR CODE HERE #####
     print("This will do something")
+    ##########################

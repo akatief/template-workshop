@@ -25,6 +25,8 @@ class BaseClass:
         """
         Initializes a new instance of the BaseClass.
         """
+        if name is None:
+            raise ValueError("Name cannot be None.")
         self.name = name
 
     def __str__(self):
@@ -54,3 +56,20 @@ class BaseClass:
             True if the entities are equal, False otherwise.
         """
         return self.name == other.name
+
+    def concat(self, other):
+        """
+        Concatenates the names of two entities.
+
+        Parameters
+        ----------
+        other : BaseClass
+            Another instance of BaseClass.
+
+        Returns
+        -------
+        str
+            The concatenated names of the entities.
+        """
+        return self.name + other.name
+        
