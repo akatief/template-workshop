@@ -2,105 +2,142 @@
   <img src='logo.png' width='200'>
 </p>
 
-# template_workshop
-[![Arxiv](https://img.shields.io/badge/Arxiv-YYMM.NNNNN-red?style=flat-square&logo=arxiv&logoColor=white)](https://put-here-your-paper.com)
+# Template Workshop
 [![License](https://img.shields.io/github/license/akatief/template-workshop)](https://opensource.org/licenses/Apache-2.0)
 [![Python Versions](https://img.shields.io/badge/Python-3.9-blue.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![CI](https://github.com/akatief/template-workshop/actions/workflows/main.yml/badge.svg)](https://github.com/akatief/template-workshop/actions/workflows/main.yml)
 
-This is the official template for new Python projects at UKP Lab. It was adapted for the needs of UKP Lab from the excellent [python-project-template](https://github.com/rochacbruno/python-project-template/) by [rochacbruno](https://github.com/rochacbruno).
+Welcome! In this workshop you'll learn how to set up your next research project using the official [UKP Template](https://github.com/UKPLab/ukp-project-template). This repo is actually a copy of the original template with a few changes to the README, everything else is the same.
 
-It should help you start your project and give you continuous status updates on the development through [GitHub Actions](https://docs.github.com/en/actions).
+What we will cover today:
+- How to setup a project created with the repo, 
+- How to add changes (which file to edit for implementing your projects),
+- How you can check that development is going well with tests and [GitHub Actions](https://docs.github.com/en/actions). 
 
-> **Abstract:** The study of natural language processing (NLP) has gained increasing importance in recent years, with applications ranging from machine translation to sentiment analysis. Properly managing Python projects in this domain is of paramount importance to ensure reproducibility and facilitate collaboration. The template provides a structured starting point for projects and offers continuous status updates on development through GitHub Actions. Key features include a basic setup.py file for installation, packaging, and distribution, documentation structure using mkdocs, testing structure using pytest, code linting with pylint, and entry points for executing the program with basic CLI argument parsing. Additionally, the template incorporates continuous integration using GitHub Actions with jobs to check, lint, and test the project, ensuring robustness and reliability throughout the development process.
+Let's get started!
 
-Contact person: [Federico Tiblias](mailto:federico.tiblias@tu-darmstadt.de) 
+## 🚦 Task 0 - Getting started
 
-[UKP Lab](https://www.ukp.tu-darmstadt.de/) | [TU Darmstadt](https://www.tu-darmstadt.de/
-)
+First thing first, you need to have a copy of this repository on your own GitHub account as well as on your PC.   
 
-Don't hesitate to send us an e-mail or report an issue, if something is broken (and it shouldn't be) or if you have further questions.
-
-
-## Getting Started
-
-> **DO NOT CLONE OR FORK**
-
-If you want to set up this template:
-
-1. Request a repository on UKP Lab's GitHub by following the standard procedure on the wiki. It will install the template directly. Alternatively, set it up in your personal GitHub account by clicking **[Use this template](https://github.com/rochacbruno/python-project-template/generate)**.
+1. Set the repository up in your personal GitHub account by clicking **[Use this template](https://github.com/rochacbruno/python-project-template/generate)**. It's important you set the repository as **public**, otherwise the following tasks won't work correctly.
 2. Wait until the first run of CI finishes. Github Actions will commit to your new repo with a "✅ Ready to clone and code" message.
-3. Delete optional files: 
-    - If you don't need automatic documentation generation, you can delete folder `docs`, file `.github\workflows\docs.yml` and `mkdocs.yml`
-    - If you don't want automatic testing, you can delete folder `tests` and file `.github\workflows\tests.yml`
-4. Prepare a virtual environment:
+3. Open the repo folder and prepare a virtual environment:
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install .
-pip install -r requirements-dev.txt # Only needed for development
+pip install -r requirements-dev.txt
 ```
-5. Adapt anything else (for example this file) to your project. 
 
-6. Read the file [ABOUT_THIS_TEMPLATE.md](ABOUT_THIS_TEMPLATE.md)  for more information about development.
+Congratulations, you just kickstarted your project! Now the interesting part begins.
 
-## Usage
+## 💻 Task 1 - Implementing a simple command 
 
-### Using the classes
+In this task you will learn where to implement new functionalities for your project (aka good practices on where to put your code). Additionally, you will write a command line interface (CLI) to run your function in the same way you would run your experiment.
 
-This is how you can use classes inside `template_workshop`: 
+Write a class to compute the Fibonacci sequence in an optimal way. Then, implement the necessary code to compute a Fibonacci number from command line. The Fibonacci sequence is defined recursively as `fib(n) = fib(n-1) + fib(n-2)` and its stopping condition is `fib(1) = fib(2) = 1`. To avoid re-computing previous steps you can cache them in a dictionary and re-use them. Be sure to correctly hook up your new class with the rest of the package by modifying all files listed below. 
+
+This is the expected command line usage you should implement:
+```bash
+template_workshop n # Will return fib(n)
+```
+
+### What to change
+
+You need to add your code to the following files:
+
+- `template_workshop/__init__.py`: Defines the content of the template_workshop package. It's important to configure it properly to have a cleaner `import` structure in your code. Use it to avoid ugly [absolute imports](https://www.geeksforgeeks.org/absolute-and-relative-imports-in-python/).
+- `template_workshop/cli.py`: Defines how to handle CLI arguments and calls the Fibonacci class.
+- `template_workshop/fibonacci.py`: Contains the Fibonacci class.
+
+## 🩺 Task 2 - Implementing tests
+
+Testing is an integral part of development that ensures your code works by covering all edge cases. A test suite is a collection of simple functions that call different parts of your code and makes some assertions. For example, here is the content of `test_base.py`, a suite for testing the (rather useless) `BaseClass` included in the package. 
 
 ```py
 from template_workshop import BaseClass
-from template_workshop import base_function
 
-BaseClass().base_method()
-base_function()
+def test_template():
+    assert True
+
+def test_base_class():
+    bc1 = BaseClass(name="test1")
+    bc2 = BaseClass(name="test2")
+
+    assert str(bc1) == "test1"
+    assert repr(bc1) == "test1"
+    assert bc1 != bc2
 ```
-### Using scripts
 
-This is how you can use `template_workshop` from command line:
+A test suite can be run by calling from command line:
 
 ```bash
-$ python -m template_workshop
+pytest -v --cov-fail-under=90 --cov=template_workshop -l --tb=short --maxfail=1 tests/
 ```
 
-### Expected results
+Let's now turn to the class you've just implemented. You want to make sure your code *actually* works and handles all cases. For example, have you thought of what would happen if someone called `template_workshop -1`? Write tests for the `Fibonacci` class to check for both positive and negative numbers. Then, fix all mistakes in `template_workshop` so that all tests complete successfully and coverage (as computed by the command above) is at least 90%.
 
-After running the experiments, you should expect the following results:
+### What to change
 
-(Feel free to describe your expected results here...)
+You need to work on the following files:
 
-### Parameter description
+- `tests/tests_fib.py`: Contains the test suite for the Fibonacci class. Change it to obtain 90% coverage.
+- `template_workshop/fibonacci.py`: Contains the Fibonacci class. Change it to fix bugs found during testing.
 
-* `x, --xxxx`: This parameter does something nice
+## 🩺 Task 3 - Using GitHub Actions to check for mistakes
 
-* ...
+GitHub Actions are another component to help you manage your project. In a nutshell, they are bash scripts called on some VM on GitHub's server. They are used to provide a reference platform for your code and make sure that things like setup, testing, etc. work on _any_ device. Another use case is automatic deployment of your package on [PyPi](https://pypi.org/), your website, or your Hugging Face model. This repository already contains some.
 
-* `z, --zzzz`: This parameter does something even nicer
+This is an example GitHub Action that runs a linter on your code to check for formatting errors:
 
-## Development
+```yml
+name: CI # Name of the action on GitHub's page
 
-Read the FAQs in [ABOUT_THIS_TEMPLATE.md](ABOUT_THIS_TEMPLATE.md) to learn more about how this template works and where you should put your classes & methods. Make sure you've correctly installed `requirements-dev.txt` dependencies
+on: # What triggers the action
+  push:
+    branches: [ main ] # In this case a push on the main branch
 
-## Cite
+jobs: # List of separate jobs to run 
+  linter: # Name of a job
+    runs-on: ubuntu-latest # Which OS to run the job on
+    steps: # List of steps
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-Please use the following citation:
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with: 
+          python-version: 3.9
+          
+      - name: Install dependencies
+        run: |
+          pip install -r requirements-dev.txt
 
+      - name: Analysing the code with pylint
+        run: | # Long ugly scary line to run the linter on all .py files
+          pylint --disable=trailing-whitespace,missing-class-docstring,missing-final-newline,trailing-newlines \
+                  --fail-under=9.0 \
+                  $(git ls-files '*.py') || echo "::warning::Pylint check failed, but the workflow will continue."
 ```
-@InProceedings{smith:20xx:CONFERENCE_TITLE,
-  author    = {Smith, John},
-  title     = {My Paper Title},
-  booktitle = {Proceedings of the 20XX Conference on XXXX},
-  month     = mmm,
-  year      = {20xx},
-  address   = {Gotham City, USA},
-  publisher = {Association for XXX},
-  pages     = {XXXX--XXXX},
-  url       = {http://xxxx.xxx}
-}
-```
+GitHub Actions are called after a specific trigger is detected, in the case above a push action on the main branch of your repo. GitHub Actions are implemented in the `.github/workflows` folder, and results of previous runs are in your repository's [Actions tab](https://github.com/akatief/template-workshop/actions).
 
-## Disclaimer
+Familiarize with the [Actions interface](https://github.com/akatief/template-workshop/actions) and understand why some of them fail. Then, apply changes to your code to fix them and push the changes to run them again. They should all show a ✅ on the page.
 
-> This repository contains experimental software and is published for the sole purpose of giving additional background details on the respective publication. 
+### What to change
+
+Discover it yourself by reading the Action's results 😉 (Hint: it's something about missing files, and something about tests).
+
+## Conclusion
+Congrats! You made it to the end. Please take a couple of minutes to compile [this form](https://forms.gle/LHnjALL12tj35KXw7). Your feedback allows me to improve this project! 
+
+Here are some links where you can learn more about the inner workings of this repo:
+
+- [GitHub Actions](https://docs.github.com/en/actions)
+- [Testing](https://docs.pytest.org/en/8.0.x/)
+- [Pylint](https://pylint.readthedocs.io/en/stable/)
+- The [ABOUT_THIS_TEMPLATE.md](ABOUT_THIS_TEMPLATE.md) file
+
+Oh, and don't forget to bookmark the original [UKP Project template](https://github.com/UKPLab/ukp-project-template)!
+
+Thank you, and happy coding 🤗
