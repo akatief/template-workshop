@@ -53,7 +53,7 @@ You need to add your code to the following files:
 
 ## 🩺 Task 2 - Implementing tests
 
-Testing is an integral part of development that ensures your code works by covering all edge cases. A test suite is a collection of simple functions that call different parts of your code and makes some assertions. For example, here is the content of `test_base.py`, a suite for testing the (rather useless) `BaseClass` included in the package. 
+Testing is an integral part of development that ensures your code works by covering all edge cases. The percentage of your lines that are checked by tests is called *coverage*. In an ideal testing scenario you would run at every single line in your code least once. A test suite is a collection of simple functions that call different parts of your code and make some assertions. For example, here is the content of `test_base.py`, a suite for testing the (rather useless) `BaseClass` included in the package. As you can see, it runs every possible use case of BaseClass.
 
 ```py
 from template_workshop import BaseClass
@@ -70,13 +70,13 @@ def test_base_class():
     assert bc1 != bc2
 ```
 
-A test suite can be run by calling from command line:
+All your test suites can be run by calling from command line:
 
 ```bash
 pytest -v --cov-fail-under=90 --cov=template_workshop -l --tb=short --maxfail=1 tests/
 ```
 
-Let's now turn to the class you've just implemented. You want to make sure your code *actually* works and handles all cases. For example, have you thought of what would happen if someone called `template_workshop -1`? Write tests for the `Fibonacci` class to check for both positive and negative numbers. Then, fix all mistakes in `template_workshop` so that all tests complete successfully and coverage (as computed by the command above) is at least 90%.
+Let's now turn to the class you've just implemented. You want to make sure your code *actually* works and handles all cases. For example, have you thought of what would happen if someone called `template_workshop -1`? First, write code in Fibonacci to handle what to do with negative (or zero) numbers. Then, write tests for `Fibonacci` to check that your code actually works. Your test should all complete successfully and coverage (as computed by the command above) should be at least 90%.
 
 ### What to change
 
@@ -120,9 +120,9 @@ jobs: # List of separate jobs to run
                   --fail-under=9.0 \
                   $(git ls-files '*.py') || echo "::warning::Pylint check failed, but the workflow will continue."
 ```
-GitHub Actions are called after a specific trigger is detected, in the case above a push action on the main branch of your repo. GitHub Actions are implemented in the `.github/workflows` folder, and results of previous runs are in your repository's [Actions tab](https://github.com/akatief/template-workshop/actions).
+GitHub Actions are called after a specific trigger is detected, in the case above a push action on the main branch of your repo. GitHub Actions are implemented in the `.github/workflows` folder, and results of previous runs are in your repository's [Actions tab](https://github.com/akatief/template-workshop/actions). You can inspect the action output to understand why a specific action fails. 
 
-Familiarize with the [Actions interface](https://github.com/akatief/template-workshop/actions) and understand why some of them fail. Then, apply changes to your code to fix them and push the changes to run them again. They should all show a ✅ on the page.
+Familiarize with the [Actions interface](https://github.com/akatief/template-workshop/actions) and understand why some of them fail. Then, apply changes to the repository to fix them. Finally, push the changes to GitHub to run the actions again. They should all show a ✅ on the page.
 
 ### What to change
 
