@@ -6,7 +6,7 @@ permissions: write-all
 
 jobs:
   rename-project:
-    if: ${{ !contains (github.repository, '/ukp-project-template') }}
+    if: ${{ !contains (github.repository, '/template-workshop') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
