@@ -20,7 +20,7 @@ Let's get started!
 
 First thing first, you need to have a copy of this repository on your own GitHub account as well as on your PC.   
 
-1. Set the repository up in your personal GitHub account by clicking **[Use this template](https://github.com/rochacbruno/python-project-template/generate)**. It's important you set the repository as **public**, otherwise the following tasks won't work correctly.
+1. Set the repository up in your personal GitHub account by clicking **[Use this template](https://github.com/akatief/template-workshop/generate)**. It's important you set the repository as **public**, otherwise the following tasks won't work correctly.
 2. Wait until the first run of CI finishes. Github Actions will commit to your new repo with a "✅ Ready to clone and code" message.
 3. Open the repo folder and prepare a virtual environment:
 ```bash
