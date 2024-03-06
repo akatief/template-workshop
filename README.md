@@ -70,13 +70,13 @@ def test_base_class():
     assert bc1 != bc2
 ```
 
-All your test suites can be run by calling from command line:
+All your test suites can be run by calling from command line (a full list of arguments can be found [here](https://docs.pytest.org/en/8.0.x/)):
 
 ```bash
 pytest -v --cov-fail-under=90 --cov=template_workshop -l --tb=short --maxfail=1 tests/
 ```
 
-Let's now turn to the class you've just implemented. You want to make sure your code *actually* works and handles all cases. For example, have you thought of what would happen if someone called `template_workshop -1`? First, write code in Fibonacci to handle what to do with negative (or zero) numbers. Then, write tests for `Fibonacci` to check that your code actually works. Your test should all complete successfully and coverage (as computed by the command above) should be at least 90%.
+Let's now turn to the class you've just implemented. You want to make sure your code *actually* works and handles all cases. For example, have you thought of what would happen if someone called `template_workshop -1`? First, write code in Fibonacci to handle what to do with negative (or zero) numbers. Then, write tests for `Fibonacci` to check that your code actually works. Your test should all complete successfully and coverage (as computed by the command above) should be at least 90% (as controlled by the `--cov-fail-under=90` in the command above.
 
 ### What to change
 
