@@ -8,8 +8,11 @@ Be creative! do whatever you want!
 - Import things from your .base module
 """
 ##### YOUR CODE HERE #####
-
+import sys
+from template_workshop import Fibonacci
 ##########################
+
+
 
 def main():  # pragma: no cover
     """
@@ -28,5 +31,13 @@ def main():  # pragma: no cover
         * Run an application (Flask, FastAPI, Django, etc.)
     """
     ##### YOUR CODE HERE #####
-    print("This will do something")
+    # Get the command-line argument for n
+    if len(sys.argv) != 2:
+        print("Usage: template_workshop <n>")
+        sys.exit(1)
+    
+    n = int(sys.argv[1])  # Convert the command-line argument to an integer
+
+    fib = Fibonacci()
+    print(fib.fib(n))
     ##########################
