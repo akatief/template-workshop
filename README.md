@@ -20,7 +20,7 @@ Let's get started!
 
 First thing first, you need to have a copy of this repository on your own GitHub account as well as on your PC.   
 
-1. Set the repository up in your personal GitHub account by clicking **[Use this template](https://github.com/rochacbruno/python-project-template/generate)**. It's important you set the repository as **public**, otherwise the following tasks won't work correctly.
+1. Set the repository up in your personal GitHub account by clicking **[Use this template](https://github.com/akatief/template-workshop/generate)**. It's important you set the repository as **public**, otherwise the following tasks won't work correctly.
 2. Wait until the first run of CI finishes. Github Actions will commit to your new repo with a "✅ Ready to clone and code" message.
 3. Open the repo folder and prepare a virtual environment:
 ```bash
@@ -70,13 +70,13 @@ def test_base_class():
     assert bc1 != bc2
 ```
 
-All your test suites can be run by calling from command line:
+All your test suites can be run by calling from command line (a full list of arguments can be found [here](https://docs.pytest.org/en/8.0.x/)):
 
 ```bash
 pytest -v --cov-fail-under=90 --cov=template_workshop -l --tb=short --maxfail=1 tests/
 ```
 
-Let's now turn to the class you've just implemented. You want to make sure your code *actually* works and handles all cases. For example, have you thought of what would happen if someone called `template_workshop -1`? First, write code in Fibonacci to handle what to do with negative (or zero) numbers. Then, write tests for `Fibonacci` to check that your code actually works. Your test should all complete successfully and coverage (as computed by the command above) should be at least 90%.
+Let's now turn to the class you've just implemented. You want to make sure your code *actually* works and handles all cases. For example, have you thought of what would happen if someone called `template_workshop -1`? First, write code in Fibonacci to handle what to do with negative (or zero) numbers. Then, write tests for `Fibonacci` to check that your code actually works. Your test should all complete successfully and coverage (as computed by the command above) should be at least 90% (as controlled by the `--cov-fail-under=90` in the command above.
 
 ### What to change
 

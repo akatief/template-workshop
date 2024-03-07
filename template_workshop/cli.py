@@ -7,7 +7,9 @@ Be creative! do whatever you want!
 - Start a web application
 - Import things from your .base module
 """
+##### YOUR CODE HERE #####
 
+##########################
 
 def main():  # pragma: no cover
     """
